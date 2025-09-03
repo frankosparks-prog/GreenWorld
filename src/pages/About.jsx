@@ -63,22 +63,20 @@ function About() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          setVisible(true);
-        }
+        if (entries[0].isIntersecting) setVisible(true);
       },
       { threshold: 0.3 }
     );
 
-    if (statsRef.current) {
-      observer.observe(statsRef.current);
-    }
+    const node = statsRef.current; // copy the ref to avoid cleanup warning
+    if (node) observer.observe(node);
 
     return () => {
-      if (statsRef.current) observer.unobserve(statsRef.current);
+      if (node) observer.unobserve(node);
     };
   }, []);
 
+  // ✅ Animate counters when visible
   useEffect(() => {
     if (visible) {
       stats.forEach((stat, index) => {
@@ -98,6 +96,7 @@ function About() {
         }, stepTime);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
 
   return (
@@ -122,7 +121,8 @@ function About() {
           </h1>
           <p className="text-lg md:text-xl max-w-2xl mx-auto text-gray-100">
             We are committed to providing high-quality agricultural products,
-            medicines, and fertilizers to support farmers and communities worldwide.
+            medicines, and fertilizers to support farmers and communities
+            worldwide.
           </p>
         </div>
 
@@ -144,7 +144,9 @@ function About() {
       {/* Mission and Vision */}
       <section className="max-w-6xl mx-auto py-20 px-6 grid md:grid-cols-2 gap-12">
         <div className="bg-white p-10 rounded-3xl shadow-lg hover:shadow-2xl transition border-t-4 border-green-600">
-          <h2 className="text-3xl font-bold text-green-700 mb-4">🌱 Our Mission</h2>
+          <h2 className="text-3xl font-bold text-green-700 mb-4">
+            🌱 Our Mission
+          </h2>
           <p className="text-gray-600 leading-relaxed text-lg">
             To empower farmers with reliable, affordable, and innovative
             agricultural solutions that improve productivity, ensure food
@@ -153,7 +155,9 @@ function About() {
         </div>
 
         <div className="bg-white p-10 rounded-3xl shadow-lg hover:shadow-2xl transition border-t-4 border-yellow-500">
-          <h2 className="text-3xl font-bold text-green-700 mb-4">🌍 Our Vision</h2>
+          <h2 className="text-3xl font-bold text-green-700 mb-4">
+            🌍 Our Vision
+          </h2>
           <p className="text-gray-600 leading-relaxed text-lg">
             To be the leading agricultural partner in the region by delivering
             excellence, promoting eco-friendly practices, and making a positive
@@ -171,17 +175,20 @@ function About() {
             className="rounded-3xl shadow-xl hover:scale-[1.02] transition-transform"
           />
           <div>
-            <h2 className="text-4xl font-extrabold text-green-800 mb-6">Our Story</h2>
+            <h2 className="text-4xl font-extrabold text-green-800 mb-6">
+              Our Story
+            </h2>
             <p className="text-gray-700 leading-relaxed mb-5 text-lg">
               Founded with a passion for agriculture, AgriCare started as a
-              small initiative to bridge the gap between farmers and high-quality
-              products. Over the years, we have grown into a trusted provider of
-              agricultural medicines, fertilizers, and services that farmers can
-              depend on.
+              small initiative to bridge the gap between farmers and
+              high-quality products. Over the years, we have grown into a
+              trusted provider of agricultural medicines, fertilizers, and
+              services that farmers can depend on.
             </p>
             <p className="text-gray-700 leading-relaxed text-lg">
               Today, we continue to innovate and support sustainable farming
-              practices, ensuring that the next generation of farmers can thrive.
+              practices, ensuring that the next generation of farmers can
+              thrive.
             </p>
           </div>
         </div>
@@ -205,7 +212,9 @@ function About() {
       {/* What We Provide */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-green-800 mb-4">What We Provide</h2>
+          <h2 className="text-4xl font-extrabold text-green-800 mb-4">
+            What We Provide
+          </h2>
           <p className="text-gray-600 text-lg">
             At AgriCare, we go beyond products — we deliver solutions to help
             farmers thrive sustainably.
@@ -218,7 +227,9 @@ function About() {
               className="bg-green-50 rounded-2xl p-8 shadow-md hover:shadow-xl transition"
             >
               <div className="mb-4">{service.icon}</div>
-              <h3 className="text-xl font-semibold text-green-700 mb-2">{service.title}</h3>
+              <h3 className="text-xl font-semibold text-green-700 mb-2">
+                {service.title}
+              </h3>
               <p className="text-gray-600 text-sm">{service.desc}</p>
             </div>
           ))}
@@ -228,9 +239,12 @@ function About() {
       {/* Meet Our Team */}
       <section className="py-20 px-6 bg-green-50">
         <div className="max-w-6xl mx-auto text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-green-800 mb-4">Meet Our Team</h2>
+          <h2 className="text-4xl font-extrabold text-green-800 mb-4">
+            Meet Our Team
+          </h2>
           <p className="text-gray-600 text-lg">
-            The passionate individuals behind AgriCare who make everything possible.
+            The passionate individuals behind AgriCare who make everything
+            possible.
           </p>
         </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10 max-w-6xl mx-auto">
@@ -244,7 +258,9 @@ function About() {
                 alt={member.name}
                 className="w-32 h-32 object-cover rounded-full mx-auto mb-4 shadow-md"
               />
-              <h3 className="text-xl font-bold text-green-700">{member.name}</h3>
+              <h3 className="text-xl font-bold text-green-700">
+                {member.name}
+              </h3>
               <p className="text-gray-500">{member.role}</p>
             </div>
           ))}

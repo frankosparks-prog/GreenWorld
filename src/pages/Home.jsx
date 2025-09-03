@@ -12,18 +12,18 @@ const Home = () => {
 
   const [currentImage, setCurrentImage] = useState(0);
 
-  // Auto slide images
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 5000); // change every 5 seconds
+    }, 5000);
+
     return () => clearInterval(interval);
-  }, []);
+  }, [images.length]); // rerun effect if images array size changes
 
   return (
     <div className="mt-16">
       {/* ---------- HERO WITH SLIDER ---------- */}
-      <section className="relative h-[90vh] flex items-center justify-center text-white overflow-hidden rounded-b-3xl shadow-lg">
+      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center text-white overflow-hidden rounded-b-3xl shadow-lg">
         {/* Background Images */}
         {images.map((img, index) => (
           <div
@@ -105,7 +105,9 @@ const Home = () => {
           <div className="p-6 bg-white rounded-2xl shadow-md">
             <ShieldCheck className="w-10 h-10 mx-auto text-green-600" />
             <h3 className="mt-3 font-semibold">Quality Assured</h3>
-            <p className="text-gray-600">Safe, tested, and reliable products.</p>
+            <p className="text-gray-600">
+              Safe, tested, and reliable products.
+            </p>
           </div>
           <div className="p-6 bg-white rounded-2xl shadow-md">
             <Leaf className="w-10 h-10 mx-auto text-green-600" />

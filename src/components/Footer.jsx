@@ -48,9 +48,9 @@ function Footer() {
         <div>
           <h3 className="text-lg font-semibold text-white mb-3">Follow Us</h3>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-green-400 transition"><Facebook size={22} /></a>
-            <a href="#" className="hover:text-green-400 transition"><Twitter size={22} /></a>
-            <a href="#" className="hover:text-green-400 transition"><Instagram size={22} /></a>
+            <a href="/contact" className="hover:text-green-400 transition"><Facebook size={22} /></a>
+            <a href="/contact" className="hover:text-green-400 transition"><Twitter size={22} /></a>
+            <a href="/contact" className="hover:text-green-400 transition"><Instagram size={22} /></a>
           </div>
         </div>
       </div>
