@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Footer() {
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${SERVER_URL}/api/subscribe`, { email });
+      toast.success("Thanks for subscribing!");
+      setEmail("");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "An error occurred. Please try again.");
+      console.error(err);
+    }
+  };
+
   return (
     <footer className="bg-gray-900 text-gray-300 relative">
-      {/* -------- Footer Content -------- */}
-      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
+      {/* -------- Top Section -------- */}
+      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-10">
         
         {/* Logo / Brand */}
         <div>
@@ -20,11 +38,25 @@ function Footer() {
         <div>
           <h3 className="text-lg font-semibold text-white mb-3">Quick Links</h3>
           <ul className="space-y-2">
-            <li><a href="/" className="hover:text-green-400 transition">Home</a></li>
-            <li><a href="/medicines" className="hover:text-green-400 transition">Medicines</a></li>
-            <li><a href="/fertilizers" className="hover:text-green-400 transition">Fertilizers</a></li>
-            <li><a href="/about" className="hover:text-green-400 transition">About Us</a></li>
-            <li><a href="/contact" className="hover:text-green-400 transition">Contact</a></li>
+            {[
+              { name: "Home", link: "/" },
+              { name: "Medicines", link: "/medicines" },
+              { name: "Fertilizers", link: "/fertilizers" },
+              { name: "About Us", link: "/about" },
+              { name: "FAQs", link: "/faqs" },
+              { name: "Testimonials", link: "/testimonials" },
+              { name: "Business Opportunities", link: "/opportunities" },
+              { name: "Contact", link: "/contact" },
+            ].map((item, idx) => (
+              <li key={idx}>
+                <a
+                  href={item.link}
+                  className="hover:text-green-400 transition duration-200"
+                >
+                  {item.name}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -44,20 +76,46 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Socials */}
+        {/* Newsletter */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">Follow Us</h3>
-          <div className="flex gap-4">
-            <a href="/contact" className="hover:text-green-400 transition"><Facebook size={22} /></a>
-            <a href="/contact" className="hover:text-green-400 transition"><Twitter size={22} /></a>
-            <a href="/contact" className="hover:text-green-400 transition"><Instagram size={22} /></a>
-          </div>
+          <h3 className="text-lg font-semibold text-white mb-3">Join Our Community</h3>
+          <p className="text-gray-400 text-sm">
+            Subscribe to get updates on new products, offers, and insights.
+          </p>
+          <form
+            className="flex flex-col sm:flex-row gap-3 mt-5"
+            onSubmit={handleSubscribe}
+          >
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 px-4 py-2 rounded focus:outline-none text-gray-900"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-green-500 hover:bg-green-600 transition text-white px-4 py-2 rounded font-medium"
+            >
+              Subscribe
+            </button>
+          </form>
         </div>
       </div>
 
-      {/* Bottom */}
-      <div className="border-t border-gray-700 text-center py-4 text-sm text-gray-400">
-        © {new Date().getFullYear()} AgriHealth. All Rights Reserved.
+      {/* -------- Socials -------- */}
+      <div className="border-t border-gray-700 py-6">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-gray-400">
+            © {new Date().getFullYear()} Green World. All Rights Reserved.
+          </p>
+          <div className="flex gap-4">
+            <a href="#" className="hover:text-green-400 transition"><Facebook size={20} /></a>
+            <a href="#" className="hover:text-green-400 transition"><Twitter size={20} /></a>
+            <a href="#" className="hover:text-green-400 transition"><Instagram size={20} /></a>
+          </div>
+        </div>
       </div>
 
       {/* Floating WhatsApp Button */}
