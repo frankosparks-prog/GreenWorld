@@ -19,6 +19,7 @@ const faq = require("./routes/FAQRoute.js");
 const testimonials = require("./routes/TestimonialsRoute");
 const subscribe = require("./routes/SubscriptionRoutes.js");
 const mpesaRoutes = require("./routes/mpesaRoute.js");
+const search = require("./routes/SearchRoute.js");
 const errorHandler = require("./middleware/Errorhandler.js");
 
 dotenv.config();
@@ -82,6 +83,7 @@ app.use("/api/testimonials", testimonials); // Testimonials routes
 app.use("/api/faq", faq);
 app.use("/api/subscribe", subscribe); // Subscription routes
 app.use("/api/mpesa", mpesaRoutes); // M-Pesa routes
+app.use("/api/search", search);
 // Graceful Shutdown
 process.on("SIGINT", () => {
   console.log("Shutting down server...");

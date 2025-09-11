@@ -26,8 +26,8 @@ function FAQs() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50 px-6 py-20 sm:px-12 lg:px-24 font-sans text-gray-800 mt-12">
-      <Helmet>
+    <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50 px-6 py-20 sm:px-12 lg:px-24 font-sans text-gray-800">
+      {/* <Helmet>
         <title>FAQs | Green World</title>
         <meta
           name="description"
@@ -40,7 +40,6 @@ function FAQs() {
         <meta name="author" content="Green World" />
         <meta name="robots" content="index, follow" />
 
-        {/* Open Graph */}
         <meta property="og:title" content="FAQs | Green World" />
         <meta
           property="og:description"
@@ -53,7 +52,6 @@ function FAQs() {
           content="https://greenworld.co.ke/greenworld-banner.jpg"
         />
 
-        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="FAQs | Green World" />
         <meta
@@ -64,7 +62,7 @@ function FAQs() {
           name="twitter:image"
           content="https://greenworld.co.ke/greenworld-banner.jpg"
         />
-      </Helmet>
+      </Helmet> */}
 
       {/* Heading */}
       <div className="max-w-4xl mx-auto text-center mb-14">

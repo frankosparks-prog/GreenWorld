@@ -55,4 +55,18 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// GET search fertilizers
+router.get("/search/:query", async (req, res) => {
+  try {
+    const results = await Fertilizer.find(
+      { $text: { $search: req.params.query } },
+      { score: { $meta: "textScore" } }
+    ).sort({ score: { $meta: "textScore" } });
+
+    res.json(results);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

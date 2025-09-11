@@ -3,10 +3,8 @@ import { NavLink, Outlet, Navigate } from "react-router-dom";
 import {
   Users,
   MailCheck,
-  BookOpenText,
   MessageCircle,
   MessageCircleDashed,
-  MessageSquareMore,
   Package,
   CreditCard,
   LogOut,
@@ -18,38 +16,34 @@ const AdminDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const handleLogout = () => {
-    // Clear the admin token from local storage
     localStorage.removeItem("adminToken");
-    // Redirect to the admin login page
     window.location.href = "/admin";
   };
 
   return (
-    <div className="flex h-screen font-inter text-white">
-      {/* ──────────────────  Sidebar  ────────────────── */}
+    <div className="flex h-screen font-inter">
+      {/* ───────────── Sidebar ───────────── */}
       <aside
-        className={`bg-gray-800 border-r border-gray-700 fixed md:relative z-20 top-0 h-full w-64 p-5 transition-transform duration-300
-        ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-        }`}
+        className={`fixed md:relative z-20 top-0 h-full w-64 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 backdrop-blur-xl border-r border-gray-700 p-5 transition-transform duration-300
+        ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
       >
         {/* Logo + Close (mobile) */}
         <div className="flex items-center justify-between mb-10 mt-6 md:mt-0">
           <div className="flex items-center gap-3">
             <img
-              src="../../PakFashions-logo.jpg"
-              alt="Pak Fashions logo"
-              className="w-9 h-9 rounded-full border-2 border-amber-500 object-cover"
+              src="../../greenworld1.jpg"
+              alt="Green World logo"
+              className="w-10 h-10 rounded-full border-2 border-green-500 object-cover shadow-md"
             />
-            <h2 className="text-2xl font-extrabold text-amber-400">
-              Pak Fashions
+            <h2 className="text-2xl font-extrabold text-green-400">
+              Green World
             </h2>
           </div>
 
           {/* Close btn (mobile) */}
           <button
             onClick={() => setIsSidebarOpen(false)}
-            className="md:hidden hover:text-amber-400"
+            className="md:hidden hover:text-green-400"
           >
             <X className="w-6 h-6" />
           </button>
@@ -57,120 +51,35 @@ const AdminDashboard = () => {
 
         {/* Nav links */}
         <nav>
-          <ul className="space-y-4">
-            <li>
-              <NavLink
-                to="visitors"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 text-lg font-medium transition-colors duration-200 ${
-                    isActive ? "text-amber-400" : "hover:text-amber-400"
-                  }`
-                }
-              >
-                <Users className="w-5 h-5" />
-                Visitor Details
-              </NavLink>
-            </li>
+          <ul className="space-y-3">
+            {[
+              { to: "visitors", label: "Visitor Details", icon: <Users /> },
+              { to: "subscribed", label: "Subscribed", icon: <MailCheck /> },
+              { to: "testimonials", label: "Testimonials", icon: <MessageCircle /> },
+              { to: "faqs", label: "FAQs", icon: <MessageCircleDashed /> },
+              { to: "medicines", label: "Manage Medicines", icon: <Package /> },
+              { to: "fertilizers", label: "Manage Fertilizers", icon: <Package /> },
+              { to: "payments", label: "Payments", icon: <CreditCard /> },
+            ].map(({ to, label, icon }) => (
+              <li key={to}>
+                <NavLink
+                  to={to}
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 px-3 py-2 rounded-lg text-lg font-medium transition-colors duration-200 
+                    ${isActive ? "text-green-400 bg-gray-700 border-l-4 border-green-400" : "text-gray-300 hover:text-green-400 hover:bg-gray-700/50"}`
+                  }
+                >
+                  <span className="w-5 h-5">{icon}</span>
+                  {label}
+                </NavLink>
+              </li>
+            ))}
 
-            <li>
-              <NavLink
-                to="subscribed"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 text-lg font-medium transition-colors duration-200 ${
-                    isActive ? "text-amber-400" : "hover:text-amber-400"
-                  }`
-                }
-              >
-                <MailCheck className="w-5 h-5" />
-                Subscribed
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                to="blog"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 text-lg font-medium transition-colors duration-200 ${
-                    isActive ? "text-amber-400" : "hover:text-amber-400"
-                  }`
-                }
-              >
-                <BookOpenText className="w-5 h-5" />
-                Blog
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                to="testimonials"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 text-lg font-medium transition-colors duration-200 ${
-                    isActive ? "text-amber-400" : "hover:text-amber-400"
-                  }`
-                }
-              >
-                <MessageCircle className="w-5 h-5" />
-                Testimonials
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="comments"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 text-lg font-medium transition-colors duration-200 ${
-                    isActive ? "text-amber-400" : "hover:text-amber-400"
-                  }`
-                }
-              >
-                <MessageSquareMore className="w-5 h-5" />
-                Comments
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="faqs"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 text-lg font-medium transition-colors duration-200 ${
-                    isActive ? "text-amber-400" : "hover:text-amber-400"
-                  }`
-                }
-              >
-                <MessageCircleDashed className="w-5 h-5" />
-                FAQs
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="products"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 text-lg font-medium transition-colors duration-200 ${
-                    isActive ? "text-amber-400" : "hover:text-amber-400"
-                  }`
-                }
-              >
-                <Package className="w-5 h-5" />
-                Manage Products
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                to="payments"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 text-lg font-medium transition-colors duration-200 ${
-                    isActive ? "text-amber-400" : "hover:text-amber-400"
-                  }`
-                }
-              >
-                <CreditCard className="w-5 h-5" />
-                Payments
-              </NavLink>
-            </li>
-
+            {/* Logout */}
             <li className="pt-4 border-t border-gray-700">
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-3 text-lg font-medium hover:text-red-400 transition-colors duration-200"
+                className="flex items-center gap-3 px-3 py-2 text-lg font-medium text-red-400 hover:text-red-500 transition-colors duration-200"
               >
                 <LogOut className="w-5 h-5" />
                 Log Out
@@ -180,30 +89,31 @@ const AdminDashboard = () => {
         </nav>
       </aside>
 
-      {/* ──────────────────  Main Content  ────────────────── */}
+      {/* ───────────── Main Content ───────────── */}
       <main
-        className={`flex-1 bg-gray-100 text-gray-900 p-6 pt-20 md:pt-6 transition-all duration-300 overflow-y-auto ${
-          isSidebarOpen ? "md:ml-2" : ""
-        }`}
+        className={`flex-1 bg-gray-100 text-gray-900 transition-all duration-300 overflow-y-auto`}
       >
-        {/* Top bar (mobile toggle) */}
-        <div className="flex items-center justify-between mb-6 md:hidden">
+        {/* Top bar */}
+        <div className="sticky top-0 z-10 bg-white shadow-md p-4 flex items-center justify-between md:hidden">
           <h1 className="text-xl font-bold">Admin Dashboard</h1>
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="hover:text-amber-400"
+            className="hover:text-green-400"
           >
             <Menu className="w-6 h-6" />
           </button>
         </div>
 
-        <Outlet />
+        {/* Content */}
+        <div className="p-6">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
 };
 
-/* Redirect /admin to /admin/products by default */
-export const AdminRoutes = () => <Navigate to="products" replace />;
+/* Redirect /admin to /admin/visitors by default */
+export const AdminRoutes = () => <Navigate to="visitors" replace />;
 
 export default AdminDashboard;

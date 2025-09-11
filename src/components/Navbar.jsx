@@ -1,5 +1,4 @@
-// src/components/Navbar.jsx
-import { useState } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Menu,
   X,
@@ -12,21 +11,37 @@ import {
   Phone,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import SearchModal from "./SearchModal";
+
+// ✅ Simple debounce hook (fixed with useRef)
+function useDebounce(callback, delay) {
+  const timeoutRef = useRef(null);
+
+  const debouncedFn = useCallback(
+    (...args) => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        callback(...args);
+      }, delay);
+    },
+    [callback, delay]
+  );
+
+  // cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  return debouncedFn;
+}
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
-  const [query, setQuery] = useState("");
-
-  // Temporary sample catalogue (later fetch from backend)
-  const products = [
-    { id: 1, name: "Herbal Tea", category: "Medicines" },
-    { id: 2, name: "Aloe Vera Juice", category: "Medicines" },
-    { id: 3, name: "Neem Capsules", category: "Medicines" },
-    { id: 4, name: "Organic Fertilizer", category: "Fertilizers" },
-    { id: 5, name: "Compost Mix", category: "Fertilizers" },
-    { id: 6, name: "Seaweed Extract", category: "Fertilizers" },
-  ];
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   const navLinks = [
     { to: "/", label: "Home", icon: <HomeIcon size={20} /> },
@@ -36,10 +51,38 @@ const Navbar = () => {
     { to: "/contact", label: "Contact", icon: <Phone size={20} /> },
   ];
 
-  // Filter products by search query
-  const filteredProducts = products.filter((p) =>
-    p.name.toLowerCase().includes(query.toLowerCase())
-  );
+  // ✅ Actual search call
+  const fetchSearchResults = async (value) => {
+    if (!value.trim()) {
+      setSearchResults([]);
+      return;
+    }
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/search?q=${value.toLowerCase()}`
+      );
+      const data = await res.json();
+      setSearchResults(data);
+    } catch (error) {
+      console.error("Search failed:", error);
+    }
+  };
+
+  // ✅ Debounced version of search
+  const debouncedSearch = useDebounce(fetchSearchResults, 400);
+
+  // Handle typing
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    debouncedSearch(value);
+  };
+
+  const toggleSearch = () => {
+    setSearchOpen((prev) => !prev);
+    setSearchTerm("");
+    setSearchResults([]);
+  };
 
   return (
     <nav className="bg-white shadow-md fixed top-0 left-0 w-full z-50">
@@ -69,7 +112,7 @@ const Navbar = () => {
 
         {/* Search Icon (Desktop) */}
         <button
-          onClick={() => setShowSearch(true)}
+          onClick={toggleSearch}
           className="hidden md:flex text-green-700 hover:text-green-900 transition"
         >
           <Search size={26} />
@@ -134,7 +177,7 @@ const Navbar = () => {
             {/* Search in sidebar */}
             <button
               onClick={() => {
-                setShowSearch(true);
+                toggleSearch();
                 setIsSidebarOpen(false);
               }}
               className="flex items-center gap-3 text-lg font-medium text-green-700 hover:text-green-900 transition"
@@ -145,58 +188,14 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Search Modal */}
-      {showSearch && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-xl w-11/12 max-w-md p-6 relative">
-            <button
-              onClick={() => {
-                setShowSearch(false);
-                setQuery("");
-              }}
-              className="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
-            >
-              <X size={20} />
-            </button>
-            <h2 className="text-lg font-semibold text-green-700 mb-4">
-              Search Products
-            </h2>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Type to search..."
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-            />
-
-            {/* Suggestions */}
-            {query && (
-              <ul className="mt-4 max-h-40 overflow-y-auto border rounded-lg divide-y">
-                {filteredProducts.length > 0 ? (
-                  filteredProducts.map((p) => (
-                    <li
-                      key={p.id}
-                      className="px-4 py-2 hover:bg-green-50 cursor-pointer"
-                      onClick={() => {
-                        alert(`You selected: ${p.name}`);
-                        setShowSearch(false);
-                        setQuery("");
-                      }}
-                    >
-                      <span className="font-medium text-gray-800">{p.name}</span>
-                      <span className="ml-2 text-sm text-gray-500">
-                        ({p.category})
-                      </span>
-                    </li>
-                  ))
-                ) : (
-                  <li className="px-4 py-2 text-gray-500">No results found</li>
-                )}
-              </ul>
-            )}
-          </div>
-        </div>
-      )}
+      {/* ✅ Centralized Search Modal */}
+      <SearchModal
+        isOpen={searchOpen}
+        onClose={toggleSearch}
+        searchTerm={searchTerm}
+        onSearchChange={handleSearchChange}
+        results={searchResults}
+      />
     </nav>
   );
 };

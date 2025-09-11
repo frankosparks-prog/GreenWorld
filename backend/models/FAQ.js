@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const faqSchema = new mongoose.Schema({
+  type: { type: String, default: "faq" },
   question: {
     type: String,
     required: true,
@@ -18,5 +19,7 @@ const faqSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+faqSchema.index({ question: 'text', answer: 'text' });
 
 module.exports = mongoose.model('FAQ', faqSchema);

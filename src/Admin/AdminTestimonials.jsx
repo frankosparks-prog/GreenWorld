@@ -95,7 +95,7 @@ function AdminTestimonials() {
   const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
 
   return (
-    <div className="p-6 bg-white text-amber-900">
+    <div className="p-6 bg-white text-green-900">
       <h2 className="text-2xl font-bold mb-4">Manage Testimonials</h2>
 
       {/* Form */}
@@ -103,14 +103,14 @@ function AdminTestimonials() {
         <input
           type="text"
           placeholder="Name"
-          className="w-full p-2 border border-amber-300 rounded"
+          className="w-full p-2 border border-green-300 rounded"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           required
         />
         <textarea
           placeholder="Message"
-          className="w-full p-2 border border-amber-300 rounded"
+          className="w-full p-2 border border-green-300 rounded"
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
           required
@@ -125,7 +125,7 @@ function AdminTestimonials() {
         </label>
         <button
           type="submit"
-          className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700"
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
         >
           {editingId ? "Update" : "Add"} Testimonial
         </button>
@@ -148,8 +148,8 @@ function AdminTestimonials() {
         {currentTestimonials.map((t) => (
           <li
             key={t._id}
-            className={`border border-amber-300 rounded p-4 ${
-              selectedIds.includes(t._id) ? "bg-amber-100" : "bg-amber-50"
+            className={`border border-green-300 rounded p-4 ${
+              selectedIds.includes(t._id) ? "bg-green-100" : "bg-green-50"
             }`}
           >
             <label className="flex items-center gap-2 mb-2">

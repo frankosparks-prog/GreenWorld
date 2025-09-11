@@ -59,9 +59,9 @@ function Testimonials() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50 py-20 px-6 sm:px-12 lg:px-24 font-sans text-gray-800 mt-12">
+    <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50 py-20 px-6 sm:px-12 lg:px-24 font-sans text-gray-800">
       {/* SEO Helmet */}
-      <Helmet>
+      {/* <Helmet>
         <title>Customer Testimonials | Green World</title>
         <meta
           name="description"
@@ -71,21 +71,21 @@ function Testimonials() {
         <meta name="author" content="Green World" />
         <meta name="robots" content="index, follow" />
 
-        {/* Open Graph */}
+        
         <meta property="og:title" content="Customer Testimonials | Green World" />
         <meta property="og:description" content="See what people are saying about Green World’s natural farming & wellness products." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://greenworld.co.ke/testimonials" />
         <meta property="og:image" content="https://greenworld.co.ke/greenworld-banner.jpg" />
 
-        {/* Twitter Card */}
+        
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Customer Testimonials | Green World" />
         <meta name="twitter:description" content="Eco-friendly, customer-trusted. Read real Green World stories here." />
         <meta name="twitter:image" content="https://greenworld.co.ke/greenworld-banner.jpg" />
 
         <script type="application/ld+json">{JSON.stringify(reviewSchema)}</script>
-      </Helmet>
+      </Helmet> */}
 
       {/* Heading */}
       <div className="text-center max-w-3xl mx-auto mb-16">
