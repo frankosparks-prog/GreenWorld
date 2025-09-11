@@ -1,17 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { toast } from "react-hot-toast";
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${SERVER_URL}/api/contact/send-mail`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Message sent successfully ✅");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        toast.error(data.error || "Failed to send message ❌");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Server error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
-      {/* ---------- HERO SECTION ---------- */}
+      {/* HERO SECTION */}
       <section className="relative bg-gradient-to-r from-green-700 via-green-600 to-green-500 text-white py-24 px-6 lg:px-16 rounded-b-[3rem] overflow-hidden">
-        {/* Background Image */}
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0')] bg-cover bg-center opacity-25"></div>
-        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-green-800/40 to-green-700/70"></div>
-
-        {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto text-center animate-fadeIn">
           <h1 className="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
             Get in Touch <span className="text-yellow-300">🌍</span>
@@ -22,12 +60,26 @@ function Contact() {
         </div>
       </section>
 
-      {/* ---------- CONTACT DETAILS ---------- */}
+      {/* CONTACT DETAILS */}
       <section className="max-w-6xl mx-auto px-6 lg:px-16 py-20 grid gap-8 md:grid-cols-3">
         {[
-          { icon: <Phone className="w-6 h-6" />, title: "Call Us", info: "+254 700 123 456" },
-          { icon: <Mail className="w-6 h-6" />, title: "Email Us", info: "info@agroshop.com" },
-          { icon: <MapPin className="w-6 h-6" />, title: "Visit Us", info: "123 Agro Street, Nairobi, Kenya" },
+          { 
+            icon: <Phone className="w-6 h-6" />, 
+            title: "Call Us", 
+            info: "+254 700 123 456", 
+            link: "tel:+254700123456" 
+          },
+          { 
+            icon: <Mail className="w-6 h-6" />, 
+            title: "Email Us", 
+            info: "info@agroshop.com", 
+            link: "mailto:info@agroshop.com" 
+          },
+          { 
+            icon: <MapPin className="w-6 h-6" />, 
+            title: "Visit Us", 
+            info: "123 Agro Street, Nairobi, Kenya" 
+          },
         ].map((item, i) => (
           <div
             key={i}
@@ -37,57 +89,69 @@ function Contact() {
               {item.icon}
             </div>
             <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-            <p className="text-gray-600">{item.info}</p>
+            {item.link ? (
+              <a
+                href={item.link}
+                className="text-green-600 font-medium hover:underline"
+              >
+                {item.info}
+              </a>
+            ) : (
+              <p className="text-gray-600">{item.info}</p>
+            )}
           </div>
         ))}
       </section>
 
-      {/* ---------- CONTACT FORM + MAP ---------- */}
+      {/* CONTACT FORM + MAP */}
       <section className="max-w-6xl mx-auto px-6 lg:px-16 pb-20 grid lg:grid-cols-2 gap-12 items-start">
         {/* Contact Form */}
         <div className="bg-white p-10 rounded-3xl shadow-xl hover:shadow-2xl transition">
           <h2 className="text-3xl font-bold mb-8 text-green-700">
             Send us a Message ✉️
           </h2>
-          <form className="space-y-6">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="peer w-full px-4 pt-5 pb-2 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-500 outline-none"
-              />
-              <label className="absolute left-4 top-2.5 text-gray-400 text-sm peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 transition-all">
-                Your Name
-              </label>
-            </div>
-
-            <div className="relative">
-              <input
-                type="email"
-                placeholder="Your Email"
-                className="peer w-full px-4 pt-5 pb-2 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-500 outline-none"
-              />
-              <label className="absolute left-4 top-2.5 text-gray-400 text-sm peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 transition-all">
-                Your Email
-              </label>
-            </div>
-
-            <div className="relative">
-              <textarea
-                placeholder="Your Message"
-                rows="5"
-                className="peer w-full px-4 pt-5 pb-2 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-500 outline-none"
-              ></textarea>
-              <label className="absolute left-4 top-2.5 text-gray-400 text-sm peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 transition-all">
-                Your Message
-              </label>
-            </div>
-
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-500 outline-none"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-500 outline-none"
+              required
+            />
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              value={formData.subject}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-500 outline-none"
+            />
+            <textarea
+              name="message"
+              rows="5"
+              placeholder="Your Message"
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-500 outline-none"
+              required
+            />
             <button
               type="submit"
+              disabled={loading}
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition transform hover:scale-[1.02]"
             >
-              Send Message
+              {loading ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>
