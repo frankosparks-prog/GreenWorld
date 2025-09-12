@@ -72,7 +72,7 @@ function Fertilizers() {
   return (
     <div className="pt-24 pb-12 px-6 bg-gradient-to-b from-green-50 to-white min-h-screen">
       <h1 className="text-4xl md:text-5xl font-bold text-center text-green-800 mb-6">
-        🌱 Our Natural Fertilizers
+        🌱 Nutri Plant Organic Fertilizers
       </h1>
       <p className="text-center text-gray-600 max-w-2xl mx-auto mb-10">
         Discover eco-friendly fertilizers crafted to enrich your soil and

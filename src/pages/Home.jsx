@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Leaf, Phone, Sprout, ShieldCheck } from "lucide-react";
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
   ];
 
   const [currentImage, setCurrentImage] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -76,7 +78,10 @@ const Home = () => {
         </h2>
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Medicines */}
-          <div className="p-6 rounded-2xl shadow-lg hover:shadow-xl transition bg-green-50 text-center">
+          <div
+            className="p-6 rounded-2xl shadow-lg hover:shadow-xl transition bg-green-50 text-center cursor-pointer"
+            onClick={navigate("/medicines")}
+          >
             <Leaf className="w-12 h-12 mx-auto text-green-600" />
             <h3 className="mt-4 text-xl font-semibold">Natural Medicines</h3>
             <p className="mt-2 text-gray-600">
@@ -85,7 +90,10 @@ const Home = () => {
             </p>
           </div>
           {/* Fertilizers */}
-          <div className="p-6 rounded-2xl shadow-lg hover:shadow-xl transition bg-green-50 text-center">
+          <div
+            className="p-6 rounded-2xl shadow-lg hover:shadow-xl transition bg-green-50 text-center cursor-pointer"
+            onClick={navigate("/fertilizers")}
+          >
             <Sprout className="w-12 h-12 mx-auto text-green-600" />
             <h3 className="mt-4 text-xl font-semibold">Organic Fertilizers</h3>
             <p className="mt-2 text-gray-600">
