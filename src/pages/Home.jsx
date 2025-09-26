@@ -7,7 +7,7 @@ const Home = () => {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsPAoMKtkw3fXYT7uEBu6q_vxpcToKi5Kvdg&s",
     "https://d2j6dbq0eux0bg.cloudfront.net/images/62563480/4220758823.jpg",
     "https://pbs.twimg.com/media/FMWZXxgXIAIwf0s?format=jpg&name=large",
-    "https://plus.unsplash.com/premium_photo-1681488347845-6e310c3dd682?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z3JlZW4lMjB3b3JsZHxlbnwwfHwwfHx8MA%3D%3D",
+    "https://plus.unsplash.com/premium_photo-1681488347845-6e310c3dd682?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z3JlZW5lJTIwd29ybGR8ZW58MHx8MHx8fDA%3D%3D",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ_ahMLVV17K1KTDk32qn9cdwJA0lQJNTb_Q&s",
   ];
 
@@ -80,7 +80,7 @@ const Home = () => {
           {/* Medicines */}
           <div
             className="p-6 rounded-2xl shadow-lg hover:shadow-xl transition bg-green-50 text-center cursor-pointer"
-            onClick={navigate("/medicines")}
+            onClick={() => navigate("/medicines")}
           >
             <Leaf className="w-12 h-12 mx-auto text-green-600" />
             <h3 className="mt-4 text-xl font-semibold">Natural Medicines</h3>
@@ -92,7 +92,7 @@ const Home = () => {
           {/* Fertilizers */}
           <div
             className="p-6 rounded-2xl shadow-lg hover:shadow-xl transition bg-green-50 text-center cursor-pointer"
-            onClick={navigate("/fertilizers")}
+            onClick={() => navigate("/fertilizers")}
           >
             <Sprout className="w-12 h-12 mx-auto text-green-600" />
             <h3 className="mt-4 text-xl font-semibold">Organic Fertilizers</h3>

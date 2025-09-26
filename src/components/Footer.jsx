@@ -121,7 +121,10 @@ function Footer() {
       {/* -------- Socials -------- */}
       <div className="border-t border-gray-700 py-6">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-400 cursor-pointer" onClick={navigate("/admin")}>
+          <p
+            className="text-sm text-gray-400 cursor-pointer"
+            onClick={() => navigate("/admin")}
+          >
             © {new Date().getFullYear()} Green World. All Rights Reserved.
           </p>
           <div className="flex gap-4">

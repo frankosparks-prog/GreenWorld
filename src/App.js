@@ -79,7 +79,6 @@ function AppRoutes() {
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/opportunities" element={<Opportunities />} />
             <Route path="/contact" element={<Contact />} />
-      <Route path="*" element={<NotFound />} />
 
       {/* Admin routes */}
       <Route path="/admin" element={<AdminLogin />} />
@@ -100,6 +99,7 @@ function AppRoutes() {
         <Route path="faqs" element={<AdminFAQs />} />
         <Route path="payments" element={<ViewPayment />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
