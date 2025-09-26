@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Footer() {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -15,7 +24,9 @@ function Footer() {
       toast.success("Thanks for subscribing!");
       setEmail("");
     } catch (err) {
-      toast.error(err.response?.data?.message || "An error occurred. Please try again.");
+      toast.error(
+        err.response?.data?.message || "An error occurred. Please try again."
+      );
       console.error(err);
     }
   };
@@ -24,7 +35,6 @@ function Footer() {
     <footer className="bg-gray-900 text-gray-300 relative">
       {/* -------- Top Section -------- */}
       <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-10">
-        
         {/* Logo / Brand */}
         <div>
           <h2 className="text-2xl font-bold text-white">Green World 🌱</h2>
@@ -62,7 +72,9 @@ function Footer() {
 
         {/* Contact Info */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">Get in Touch</h3>
+          <h3 className="text-lg font-semibold text-white mb-3">
+            Get in Touch
+          </h3>
           <ul className="space-y-3">
             <li className="flex items-center gap-2">
               <MapPin size={18} className="text-green-400" /> Nairobi, Kenya
@@ -78,7 +90,9 @@ function Footer() {
 
         {/* Newsletter */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">Join Our Community</h3>
+          <h3 className="text-lg font-semibold text-white mb-3">
+            Join Our Community
+          </h3>
           <p className="text-gray-400 text-sm">
             Subscribe to get updates on new products, offers, and insights.
           </p>
@@ -107,13 +121,19 @@ function Footer() {
       {/* -------- Socials -------- */}
       <div className="border-t border-gray-700 py-6">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-400 cursor-pointer" onClick={navigate("/admin")}>
             © {new Date().getFullYear()} Green World. All Rights Reserved.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-green-400 transition"><Facebook size={20} /></a>
-            <a href="#" className="hover:text-green-400 transition"><Twitter size={20} /></a>
-            <a href="#" className="hover:text-green-400 transition"><Instagram size={20} /></a>
+            <a href="/home" className="hover:text-green-400 transition">
+              <Facebook size={20} />
+            </a>
+            <a href="/home" className="hover:text-green-400 transition">
+              <Twitter size={20} />
+            </a>
+            <a href="/home" className="hover:text-green-400 transition">
+              <Instagram size={20} />
+            </a>
           </div>
         </div>
       </div>

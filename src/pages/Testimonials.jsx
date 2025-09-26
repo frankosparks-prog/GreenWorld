@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Helmet } from "react-helmet-async";
+// import { Helmet } from "react-helmet-async";
 import { Quote } from "lucide-react";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -25,38 +25,38 @@ function Testimonials() {
     ? testimonials
     : testimonials.slice(0, 9);
 
-  const reviewSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Green World",
-    description: "Eco-friendly farming & natural health products trusted by thousands.",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue:
-        testimonials.length > 0
-          ? (
-              testimonials.reduce((sum, t) => sum + (t.rating || 5), 0) /
-              testimonials.length
-            ).toFixed(1)
-          : "5",
-      reviewCount: testimonials.length,
-    },
-    review: testimonials.slice(0, 5).map((t) => ({
-      "@type": "Review",
-      author: {
-        "@type": "Person",
-        name: t.name,
-      },
-      datePublished: new Date(t.date).toISOString(),
-      reviewBody: t.message,
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: t.rating || 5,
-        bestRating: 5,
-        worstRating: 1,
-      },
-    })),
-  };
+  // const reviewSchema = {
+  //   "@context": "https://schema.org",
+  //   "@type": "Organization",
+  //   name: "Green World",
+  //   description: "Eco-friendly farming & natural health products trusted by thousands.",
+  //   aggregateRating: {
+  //     "@type": "AggregateRating",
+  //     ratingValue:
+  //       testimonials.length > 0
+  //         ? (
+  //             testimonials.reduce((sum, t) => sum + (t.rating || 5), 0) /
+  //             testimonials.length
+  //           ).toFixed(1)
+  //         : "5",
+  //     reviewCount: testimonials.length,
+  //   },
+  //   review: testimonials.slice(0, 5).map((t) => ({
+  //     "@type": "Review",
+  //     author: {
+  //       "@type": "Person",
+  //       name: t.name,
+  //     },
+  //     datePublished: new Date(t.date).toISOString(),
+  //     reviewBody: t.message,
+  //     reviewRating: {
+  //       "@type": "Rating",
+  //       ratingValue: t.rating || 5,
+  //       bestRating: 5,
+  //       worstRating: 1,
+  //     },
+  //   })),
+  // };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50 py-20 px-6 sm:px-12 lg:px-24 font-sans text-gray-800">
