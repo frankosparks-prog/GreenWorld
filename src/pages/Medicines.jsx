@@ -173,7 +173,7 @@ function Medicines() {
 
                     {/* WhatsApp Order Button */}
                     <a
-                      href={`https://wa.me/254700000000?text=Hello! I’d like to order ${item.name}`}
+                      href={`https://wa.me/254701159155?text=Hello! I’d like to order ${item.name}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-4 flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2 rounded-xl hover:bg-green-700 transition w-full"
@@ -189,7 +189,6 @@ function Medicines() {
         </>
       )}
 
-      {/* Product Modal */}
       {/* Product Modal */}
       {currentIndex !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-4">
@@ -227,7 +226,7 @@ function Medicines() {
 
             {/* WhatsApp Order Button */}
             <a
-              href={`https://wa.me/254700000000?text=Hello! I’d like to order ${filteredMedicines[currentIndex].name}`}
+              href={`https://wa.me/254701159155?text=Hello! I’d like to order ${filteredMedicines[currentIndex].name}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-3 rounded-xl hover:bg-green-700 transition w-full mb-4"

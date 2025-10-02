@@ -80,7 +80,7 @@ function Footer() {
               <MapPin size={18} className="text-green-400" /> Nairobi, Kenya
             </li>
             <li className="flex items-center gap-2">
-              <Phone size={18} className="text-green-400" /> +254 700 123 456
+              <Phone size={18} className="text-green-400" /> +254 701 159 155
             </li>
             <li className="flex items-center gap-2">
               <Mail size={18} className="text-green-400" /> info@agrihealth.com
@@ -143,7 +143,7 @@ function Footer() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/254700123456"
+        href="https://wa.me/254701159155"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 bg-green-500 p-4 rounded-full shadow-lg text-white 
