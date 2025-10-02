@@ -50,10 +50,14 @@ const Home = () => {
             life and greener farms 🌱
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <button className="px-6 py-3 bg-green-500 hover:bg-green-400 text-white rounded-2xl shadow-lg transition">
+            <button className="px-6 py-3 bg-green-500 hover:bg-green-400 text-white rounded-2xl shadow-lg transition"
+            onClick={() => navigate("/medicines")}
+            >
               Explore Medicines
             </button>
-            <button className="px-6 py-3 border border-green-400 hover:bg-green-600 rounded-2xl transition">
+            <button className="px-6 py-3 border border-green-400 hover:bg-green-600 rounded-2xl transition"
+            onClick={() => navigate("/fertilizers")}
+            >
               Explore Fertilizers
             </button>
           </div>
