@@ -77,8 +77,8 @@ function Medicines() {
       </h1>
       <p className="text-center text-gray-600 max-w-2xl mx-auto mb-10">
         Explore our range of carefully crafted herbal medicines that promote
-        health and wellness naturally.  
-        Order directly via WhatsApp for fast delivery 🚚.
+        health and wellness naturally. Order directly via WhatsApp for fast
+        delivery 🚚.
       </p>
 
       {/* Loader */}
@@ -143,9 +143,7 @@ function Medicines() {
           {filteredMedicines.length === 0 ? (
             <div className="text-center py-20">
               <AlertCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 font-medium">
-                No medicines found.
-              </p>
+              <p className="text-gray-600 font-medium">No medicines found.</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -192,9 +190,11 @@ function Medicines() {
       )}
 
       {/* Product Modal */}
+      {/* Product Modal */}
       {currentIndex !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-4">
-          <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-6 relative animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 relative animate-fadeIn">
+            {/* Close button */}
             <button
               className="absolute top-3 right-3 text-gray-600 hover:text-red-500"
               onClick={closeModal}
@@ -202,21 +202,30 @@ function Medicines() {
               <X size={24} />
             </button>
 
+            {/* Image */}
             <img
               src={filteredMedicines[currentIndex].image}
               alt={filteredMedicines[currentIndex].name}
               className="w-full h-60 object-cover rounded-xl mb-4"
             />
+
+            {/* Title */}
             <h2 className="text-2xl font-bold text-green-700 flex items-center gap-2 mb-3">
               <Leaf className="text-green-600 w-6 h-6" />
               {filteredMedicines[currentIndex].name}
             </h2>
+
+            {/* Description */}
             <p className="text-gray-600 mb-3">
               {filteredMedicines[currentIndex].details}
             </p>
+
+            {/* Price */}
             <p className="text-xl font-bold text-green-800 mb-4">
               Ksh {filteredMedicines[currentIndex].price}
             </p>
+
+            {/* WhatsApp Order Button */}
             <a
               href={`https://wa.me/254700000000?text=Hello! I’d like to order ${filteredMedicines[currentIndex].name}`}
               target="_blank"
