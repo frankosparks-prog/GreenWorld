@@ -147,7 +147,7 @@ const Home = () => {
           Connect with us directly on WhatsApp and place your order instantly.
         </p>
         <a
-          href="https://wa.me/2547XXXXXXXX"
+          href="https://wa.me/254701159155"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center px-8 py-3 bg-green-500 hover:bg-green-400 text-lg font-semibold rounded-2xl shadow-lg transition"

@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -45,7 +45,7 @@ function Footer() {
         </div>
 
         {/* Quick Links */}
-        <div>
+        {/* <div>
           <h3 className="text-lg font-semibold text-white mb-3">Quick Links</h3>
           <ul className="space-y-2">
             {[
@@ -68,6 +68,30 @@ function Footer() {
               </li>
             ))}
           </ul>
+        </div> */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-3">Quick Links</h3>
+          <ul className="space-y-2">
+            {[
+              { name: "Home", link: "/" },
+              { name: "Medicines", link: "/medicines" },
+              { name: "Fertilizers", link: "/fertilizers" },
+              { name: "About Us", link: "/about" },
+              { name: "FAQs", link: "/faqs" },
+              { name: "Testimonials", link: "/testimonials" },
+              { name: "Business Opportunities", link: "/opportunities" },
+              { name: "Contact", link: "/contact" },
+            ].map((item, idx) => (
+              <li key={idx}>
+                <Link
+                  to={item.link}
+                  className="hover:text-green-400 transition duration-200"
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Contact Info */}
@@ -80,10 +104,22 @@ function Footer() {
               <MapPin size={18} className="text-green-400" /> Nairobi, Kenya
             </li>
             <li className="flex items-center gap-2">
-              <Phone size={18} className="text-green-400" /> +254 701 159 155
+              <Phone size={18} className="text-green-400" />
+              <a
+                href="tel:+254701159155"
+                className="hover:text-green-400 transition duration-200"
+              >
+                +254 701 159 155
+              </a>
             </li>
             <li className="flex items-center gap-2">
-              <Mail size={18} className="text-green-400" /> info@agrihealth.com
+              <Mail size={18} className="text-green-400" />
+              <a
+                href="mailto:greenworldhealthsolutions@gmail.com"
+                className="hover:text-green-400 transition duration-200"
+              >
+                greenworld
+              </a>
             </li>
           </ul>
         </div>
